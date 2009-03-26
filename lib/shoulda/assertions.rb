@@ -21,7 +21,7 @@ module Shoulda # :nodoc:
     #   assert_contains(['a', '1'], 'a') => passes
     #   assert_contains(['a', '1'], /not there/) => fails
     def assert_contains(collection, x, extra_msg = "")
-      collection = [collection] unless collection.is_a?(Array)
+      collection = [collection] unless collection.respond_to? :include?
       msg = "#{x.inspect} not found in #{collection.to_a.inspect} #{extra_msg}"
       case x
       when Regexp
@@ -34,7 +34,7 @@ module Shoulda # :nodoc:
     # Asserts that the given collection does not contain item x.  If x is a regular expression, ensure that
     # none of the elements from the collection match x.
     def assert_does_not_contain(collection, x, extra_msg = "")
-      collection = [collection] unless collection.is_a?(Array)
+      collection = [collection] unless collection.respond_to? :include?
       msg = "#{x.inspect} found in #{collection.to_a.inspect} " + extra_msg
       case x
       when Regexp
